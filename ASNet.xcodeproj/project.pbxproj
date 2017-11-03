@@ -136,7 +136,7 @@
 		42C0EFE81FAA4C8C00CB0442 /* ASNet */ = {
 			isa = PBXGroup;
 			children = (
-				42C0F0211FAA583B00CB0442 /* ASNet Pod */,
+				42C0F0211FAA583B00CB0442 /* ASNetPod */,
 				42C0EFE91FAA4C8D00CB0442 /* AppDelegate.swift */,
 				42C0EFEB1FAA4C8D00CB0442 /* ViewController.swift */,
 				42BD5A931FAC575500B654AE /* Lead.swift */,
@@ -166,7 +166,7 @@
 			path = ASNetUITests;
 			sourceTree = "<group>";
 		};
-		42C0F0211FAA583B00CB0442 /* ASNet Pod */ = {
+		42C0F0211FAA583B00CB0442 /* ASNetPod */ = {
 			isa = PBXGroup;
 			children = (
 				42C0F0171FAA55F700CB0442 /* ASNet.swift */,
@@ -180,7 +180,7 @@
 				42D0F30E1FABB70600F54521 /* JsonObjectResult.swift */,
 				42BD5A951FACDA5D00B654AE /* JsonArrayResult.swift */,
 			);
-			path = "ASNet Pod";
+			path = ASNetPod;
 			sourceTree = "<group>";
 		};
 		6F97902841C88D4AD105CAD5 /* Pods */ = {
