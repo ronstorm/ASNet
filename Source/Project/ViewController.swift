@@ -22,6 +22,8 @@ class ViewController: UIViewController {
         asNet.initialize(withHost: host, andBaseURL: baseUrl)
         asNet.networkService.timeoutIntervalForRequest = 60
         
+        asNet.networkService.errorTexts.customErrorTitle = "Yo! It's a custom error title!"
+        
         let apiUrl = "/api/getJson"
         
         // For Object Response
