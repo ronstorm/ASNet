@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'ASNet'
-  s.version          = '0.1.4'
+  s.version          = '0.1.5'
   s.summary          = 'A swift-baked networking library wrapped over NSURLSession thingy.'
  
   s.description      = <<-DESC
