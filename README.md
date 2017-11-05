@@ -236,7 +236,7 @@ ASNet.shared.fetchAPIDataWithJsonArrayResponse(endpointURL: "/api/getJson", http
 
     switch result {
     case .success(let languageArray, let json):
-        // leads is an array of Lead model Objects.
+        // languageArray is an array of Language model Objects.
         // json is the the json response of the request. this response is not needed unless you want to do something special with this. The library is parsing your data itself and returning you the array of object of the class type you are sending through parameters you want.
         break
     case .error(let errorTitle, let errorText):
