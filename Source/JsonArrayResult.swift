@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum JsonArrayResult<T> {
+public enum JsonArrayResult<T> {
     case success([T], Any)
     case error(String, String)
 }

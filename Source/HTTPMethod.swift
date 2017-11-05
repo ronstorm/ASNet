@@ -2,13 +2,13 @@
 //  HTTPMethod.swift
 //  JokeSwift
 //
-//  Created by Bluscheme on 9/13/17.
-//  Copyright © 2017 amitsen. All rights reserved.
+//  Created by Amit Sen on 9/13/17.
+//  Copyright © 2017 Amit Sen. All rights reserved.
 //
 
 import Foundation
 
-enum HTTPMethod: String {
+public enum HTTPMethod: String {
     case get = "GET"
     case post = "POST"
     case put = "PUT"

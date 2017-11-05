@@ -9,12 +9,12 @@
 import Foundation
 import ObjectMapper
 
-class NetworkService {
-    var isReachable: Bool = true
+open class NetworkService {
+    public var isReachable: Bool = true
     
     private var baseUrl: String = ""
     
-    var timeoutIntervalForRequest: TimeInterval {
+    public var timeoutIntervalForRequest: TimeInterval {
         get {
             return session.configuration.timeoutIntervalForRequest
         }
@@ -23,20 +23,20 @@ class NetworkService {
         }
     }
     
-    let errorTexts = ASNetErrorTexts.init()
+    public let errorTexts = ASNetErrorTexts.init()
     
     
     // set up the session
-    private let config = URLSessionConfiguration.default
-    private var session: URLSession!
+    public let config = URLSessionConfiguration.default
+    public var session: URLSession!
     
-    init(baseURL: String) {
+    public init(baseURL: String) {
         self.baseUrl = baseURL
         session = URLSession(configuration: config)
         session.configuration.timeoutIntervalForRequest = 30
     }
     
-    func fetchAPIDataWithJsonObjectResponse<T: Mappable>(endpointURL url: String, httpMethod method: HTTPMethod, parameters params: Parameters?, isMultiPart: Bool = false, filesWhenMultipart files: ImageFileArray?, returningType type: T.Type, callback: @escaping (JsonObjectResult<T>) -> ()) {
+    open func fetchAPIDataWithJsonObjectResponse<T: Mappable>(endpointURL url: String, httpMethod method: HTTPMethod, parameters params: Parameters?, isMultiPart: Bool = false, filesWhenMultipart files: ImageFileArray?, returningType type: T.Type, callback: @escaping (JsonObjectResult<T>) -> ()) {
         
         
         if isReachable {
@@ -106,7 +106,7 @@ class NetworkService {
         }
     }
     
-    func fetchAPIDataWithJsonArrayResponse<T: Mappable>(endpointURL url: String, httpMethod method: HTTPMethod, parameters params: Parameters?, isMultiPart: Bool = false, filesWhenMultipart files: ImageFileArray?, returningType type: T.Type, callback: @escaping (JsonArrayResult<T>) -> ()) {
+    open func fetchAPIDataWithJsonArrayResponse<T: Mappable>(endpointURL url: String, httpMethod method: HTTPMethod, parameters params: Parameters?, isMultiPart: Bool = false, filesWhenMultipart files: ImageFileArray?, returningType type: T.Type, callback: @escaping (JsonArrayResult<T>) -> ()) {
         
         
         if isReachable {

@@ -2,21 +2,21 @@
 //  ImageFile.swift
 //  Insuree Agent
 //
-//  Created by Bluscheme on 9/13/17.
-//  Copyright © 2017 amitsen. All rights reserved.
+//  Created by Amit Sen on 9/13/17.
+//  Copyright © 2017 Amit Sen. All rights reserved.
 //
 
 import UIKit
 
 typealias ImageFileArray = [ImageFile]
 
-class ImageFile: NSObject {
-    internal var imageData: Data
-    internal var fileKey: String
-    internal var fileName: String
-    internal var mimeType: MimeType
+open class ImageFile: NSObject {
+    public var imageData: Data
+    public var fileKey: String
+    public var fileName: String
+    public var mimeType: MimeType
     
-    init?(image: UIImage, fileKey: String, fileName: String, mimeType: MimeType) {
+    public init?(image: UIImage, fileKey: String, fileName: String, mimeType: MimeType) {
         
         self.fileKey = fileKey
         self.fileName = fileName

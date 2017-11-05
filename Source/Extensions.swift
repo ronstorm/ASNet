@@ -2,8 +2,8 @@
 //  UIView+Animation.swift
 //  UDOY
 //
-//  Created by Bluscheme on 5/24/17.
-//  Copyright © 2017 UDOY TECHNOLOGIES. All rights reserved.
+//  Created by Amit Sen on 5/24/17.
+//  Copyright © 2017 Amit Sen. All rights reserved.
 //
 
 import Foundation
