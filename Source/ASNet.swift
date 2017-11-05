@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-typealias Parameters = [String: Any]
+public typealias Parameters = [String: Any]
 
 open class ASNet {
     private var host: String = ""

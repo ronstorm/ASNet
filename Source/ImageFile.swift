@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias ImageFileArray = [ImageFile]
+public typealias ImageFileArray = [ImageFile]
 
 open class ImageFile: NSObject {
     public var imageData: Data
