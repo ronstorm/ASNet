@@ -247,7 +247,7 @@ ASNet.shared.fetchAPIDataWithJsonArrayResponse(endpointURL: "/api/getJson", http
 ```
 You have the language array now and you can do whatever you want with that array.
 
-You must have the query about the `result` thingy inside the closure of the method. Right? Actually it's an Enum as well to accumulate the Successful and Failed response in a single object.
+You must have the query about the `result` thingy inside the closure of the method. Right? Actually it's an Enum that helps to accumulate the Successful and Failed response in a single object.
 ```Swift
 public enum JsonObjectResult<T> {
     case success(T, Any)
