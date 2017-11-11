@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'ASNet'
   s.version          = '1.0'
-  s.summary          = 'A swift-baked networking library wrapped over NSURLSession thingy.'
+  s.summary          = 'A swift-baked networking library wrapped over URLSession thingy.'
  
   s.description      = <<-DESC
 A Swift-Baked lightweight network library in addition with the json parsing facility with the help of ObjectMapper. It frees you from the stress of json parsing - Every API call returns you an object or an array of objects. Less Coding - More Efficiency. Happy coding.
