@@ -26,8 +26,10 @@ class ViewController: UIViewController {
         
         let apiUrl = "/api/getJson"
         
+        let imageUrl = "https://fyf.tac-cdn.net/images/products/large/TEV12-4.jpg"
+        
         // For Object Response
-        asNet.fetchAPIDataWithJsonObjectResponse(endpointURL: apiUrl, httpMethod: .get, parameters: nil, isMultiPart: false, filesWhenMultipart: nil, returningType: Lead.self) { (result) in
+        asNet.fetchAPIDataWithJsonObjectResponse(endpointURL: apiUrl, httpMethod: .get, httpHeader: nil, parameters: nil, isMultiPart: false, filesWhenMultipart: nil, returningType: Lead.self) { (result) in
             
             switch result {
             case .success(let lead, let json):
@@ -41,7 +43,7 @@ class ViewController: UIViewController {
         }
         
         // for array response
-        asNet.fetchAPIDataWithJsonArrayResponse(endpointURL: apiUrl, httpMethod: .get, parameters: nil, isMultiPart: false, filesWhenMultipart: nil, returningType: Lead.self) { (result) in
+        asNet.fetchAPIDataWithJsonArrayResponse(endpointURL: apiUrl, httpMethod: .get, httpHeader: nil, parameters: nil, isMultiPart: false, filesWhenMultipart: nil, returningType: Lead.self) { (result) in
             
             switch result {
             case .success(let leads, let json):
@@ -53,6 +55,15 @@ class ViewController: UIViewController {
                 break
             }
         }
+        
+        // To get an image from url
+        asNet.loadImage(fromUrl: imageUrl, usingCache: true, onSuccess: { (image) in
+            // do whatever you want with the image
+            
+        }, onError: {
+            // Error downloading image. Show any alert or something.
+            
+        })
     }
 
     override func didReceiveMemoryWarning() {

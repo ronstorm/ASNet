@@ -48,6 +48,13 @@ Then, run the following command:
 $ pod install
 ```
 
+## Updates in new version
+
+There are Two major updates in this version.
+- Add Custom Header (HTTPHeader)
+- Loading Image from URL
+
+
 ## Usage
 
 ### Initialize
@@ -71,9 +78,8 @@ There are only two methods to request to the Rest API and getting response
 ```Swift
 import ASNet
 
-
-
-ASNet.shared.fetchAPIDataWithJsonObjectResponse(endpointURL: "/api/getJson", httpMethod: .get, parameters: nil, isMultiPart: false, filesWhenMultipart: nil, returningType: Lead.self) { (result) in
+// For Object Response
+asNet.fetchAPIDataWithJsonObjectResponse(endpointURL: apiUrl, httpMethod: .get, httpHeader: nil, parameters: nil, isMultiPart: false, filesWhenMultipart: nil, returningType: Lead.self) { (result) in
 
     switch result {
     case .success(let lead, let json):
@@ -92,7 +98,8 @@ ASNet.shared.fetchAPIDataWithJsonObjectResponse(endpointURL: "/api/getJson", htt
 ```Swift
 import ASNet
 
-ASNet.shared.fetchAPIDataWithJsonArrayResponse(endpointURL: "/api/getJson", httpMethod: .get, parameters: nil, isMultiPart: false, filesWhenMultipart: nil, returningType: Lead.self) { (result) in
+// for array response
+asNet.fetchAPIDataWithJsonArrayResponse(endpointURL: apiUrl, httpMethod: .get, httpHeader: nil, parameters: nil, isMultiPart: false, filesWhenMultipart: nil, returningType: Lead.self) { (result) in
 
     switch result {
     case .success(let leads, let json):
@@ -117,6 +124,10 @@ public enum HTTPMethod: String {
     case put = "PUT"
     case delete = "DELETE"
 }
+```
+- **HTTPHeader -** It's a `nullable` (You can send nil instead of empty dictionary) Dictionary to send parameters - either in json or in post form pattern.
+```Swift
+public typealias HTTPHeader = [String: String]
 ```
 - **Parameters -** It's a `nullable` (You can send nil instead of empty dictionary) Dictionary to send parameters - either in json or in post form pattern.
 ```Swift
@@ -228,24 +239,7 @@ class Language: Mappable {
     }
 }
 ```
-then call the api method for Json Array Response
-```Swift
-import ASNet
-
-ASNet.shared.fetchAPIDataWithJsonArrayResponse(endpointURL: "/api/getJson", httpMethod: .get, parameters: nil, isMultiPart: false, filesWhenMultipart: nil, returningType: Language.self) { (result) in
-
-    switch result {
-    case .success(let languageArray, let json):
-        // languageArray is an array of Language model Objects.
-        // json is the the json response of the request. this response is not needed unless you want to do something special with this. The library is parsing your data itself and returning you the array of object of the class type you are sending through parameters you want.
-        break
-    case .error(let errorTitle, let errorText):
-        // you can edit this errortitle and errortext.
-        break
-    }
-}
-```
-You have the language array now and you can do whatever you want with that array.
+Now call either of the api methods discussed above according to your need.
 
 You must have the query about the `result` thingy inside the closure of the method. Right? Actually it's an Enum that helps to accumulate the Successful and Failed response in a single object.
 ```Swift
@@ -260,6 +254,24 @@ public enum JsonArrayResult<T> {
     case error(String, String)
 }
 ```
+
+### Load Image from Image URL
+
+You can load images from url through this library as well.
+```Swift
+import ASNet
+
+// To get an image from url
+asNet.loadImage(fromUrl: imageUrl, usingCache: true, onSuccess: { (image) in
+// do whatever you want with the image
+
+}, onError: {
+// Error downloading image. Show any alert or something.
+
+})
+```
+You have to make usingCache true if you need it to get from the cache. That's it. Pretty straightforward!
+
 
 ### Some More Customizable Stuff
 
@@ -299,12 +311,6 @@ import ASNet
 
 ASNet.shared.networkService.errorTexts.customErrorTitle = "Yo! It's a custom error title!"
 ```
-
-
-## Issues
-
-Create an issue if you have any questions or you are facing any problem with the library.
-
 
 ## Upcoming Versions
 

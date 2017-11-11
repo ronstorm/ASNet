@@ -36,7 +36,7 @@ open class NetworkService {
         session.configuration.timeoutIntervalForRequest = 30
     }
     
-    open func fetchAPIDataWithJsonObjectResponse<T: Mappable>(endpointURL url: String, httpMethod method: HTTPMethod, parameters params: Parameters?, isMultiPart: Bool = false, filesWhenMultipart files: ImageFileArray?, returningType type: T.Type, callback: @escaping (JsonObjectResult<T>) -> ()) {
+    open func fetchAPIDataWithJsonObjectResponse<T: Mappable>(endpointURL url: String, httpMethod method: HTTPMethod, httpHeader header: HTTPHeader?, parameters params: Parameters?, isMultiPart: Bool = false, filesWhenMultipart files: ImageFileArray?, returningType type: T.Type, callback: @escaping (JsonObjectResult<T>) -> ()) {
         
         
         if isReachable {
@@ -48,19 +48,28 @@ open class NetworkService {
             var request = URLRequest(url: url)
             request.httpMethod = method.rawValue
             
+            let boundary = self.generateBoundary()
+            
+            if isMultiPart {
+                request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+            } else {
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            }
+            
+            if let additionalHeader = header {
+                for(key, val) in additionalHeader {
+                    request.setValue(val, forHTTPHeaderField: key)
+                }
+            }
+            
             switch method {
             case .post:
                 if isMultiPart {
-                    let boundary = self.generateBoundary()
-                    request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-                    
                     let dataBody = createDataBody(withParameters: params, imageFiles: files, boundary: boundary)
                     request.httpBody = dataBody
                 } else {
                     if let params = params {
                         let  jsonData = try? JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
-                        
-                        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                         request.httpBody = jsonData
                     }
                 }
@@ -75,38 +84,29 @@ open class NetworkService {
             
             session.dataTask(with: request) { (data, response, error) in
                 
-                if let response = response as? HTTPURLResponse {
-                    //                    print("Response: \(response)")
-                    
-                    if let data = data {
-                        do {
-                            let json = try JSONSerialization.jsonObject(with: data, options: [])
+                if let data = data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
                             
-                            let apiData = Mapper<T>().map(JSONObject: json)!
-                            callback(JsonObjectResult.success(apiData, json))
-                        } catch {
-                            print(error.localizedDescription)
-                            callback(JsonObjectResult.error(self.errorTexts.parsingErrorTitle, self.errorTexts.parsingErrorText))
-                            return
-                        }
-                    } else {
-                        callback(JsonObjectResult.error(self.errorTexts.responseErrorTitle, self.errorTexts.responseErrorText))
+                        let apiData = Mapper<T>().map(JSONObject: json)!
+                        callback(JsonObjectResult.success(apiData, json))
+                    } catch {
+                        print(error.localizedDescription)
+                        callback(JsonObjectResult.error(self.errorTexts.parsingErrorTitle, self.errorTexts.parsingErrorText))
                         return
                     }
-                    
                 } else {
                     callback(JsonObjectResult.error(self.errorTexts.responseErrorTitle, self.errorTexts.responseErrorText))
                     return
                 }
                 
-                
-                }.resume()
+            }.resume()
         } else {
             callback(JsonObjectResult.error(self.errorTexts.networkErrorTitle, self.errorTexts.networkErrorText))
         }
     }
     
-    open func fetchAPIDataWithJsonArrayResponse<T: Mappable>(endpointURL url: String, httpMethod method: HTTPMethod, parameters params: Parameters?, isMultiPart: Bool = false, filesWhenMultipart files: ImageFileArray?, returningType type: T.Type, callback: @escaping (JsonArrayResult<T>) -> ()) {
+    open func fetchAPIDataWithJsonArrayResponse<T: Mappable>(endpointURL url: String, httpMethod method: HTTPMethod, httpHeader header: HTTPHeader?, parameters params: Parameters?, isMultiPart: Bool = false, filesWhenMultipart files: ImageFileArray?, returningType type: T.Type, callback: @escaping (JsonArrayResult<T>) -> ()) {
         
         
         if isReachable {
@@ -118,19 +118,28 @@ open class NetworkService {
             var request = URLRequest(url: url)
             request.httpMethod = method.rawValue
             
+            let boundary = self.generateBoundary()
+            
+            if isMultiPart {
+                request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+            } else {
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            }
+            
+            if let additionalHeader = header {
+                for(key, val) in additionalHeader {
+                    request.setValue(val, forHTTPHeaderField: key)
+                }
+            }
+            
             switch method {
             case .post:
                 if isMultiPart {
-                    let boundary = self.generateBoundary()
-                    request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-                    
                     let dataBody = createDataBody(withParameters: params, imageFiles: files, boundary: boundary)
                     request.httpBody = dataBody
                 } else {
                     if let params = params {
                         let  jsonData = try? JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
-                        
-                        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                         request.httpBody = jsonData
                     }
                 }
@@ -145,32 +154,23 @@ open class NetworkService {
             
             session.dataTask(with: request) { (data, response, error) in
                 
-                if let response = response as? HTTPURLResponse {
-                    //                    print("Response: \(response)")
-                    
-                    if let data = data {
-                        do {
-                            let json = try JSONSerialization.jsonObject(with: data, options: [])
-                            
-                            let apiData = Mapper<T>().mapArray(JSONObject: json)!
-                            callback(JsonArrayResult.success(apiData, json))
-                        } catch {
-                            print(error.localizedDescription)
-                            callback(JsonArrayResult.error(self.errorTexts.parsingErrorTitle, self.errorTexts.parsingErrorText))
-                            return
-                        }
-                    } else {
-                        callback(JsonArrayResult.error(self.errorTexts.responseErrorTitle, self.errorTexts.responseErrorText))
+                if let data = data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        
+                        let apiData = Mapper<T>().mapArray(JSONObject: json)!
+                        callback(JsonArrayResult.success(apiData, json))
+                    } catch {
+                        print(error.localizedDescription)
+                        callback(JsonArrayResult.error(self.errorTexts.parsingErrorTitle, self.errorTexts.parsingErrorText))
                         return
                     }
-                    
                 } else {
                     callback(JsonArrayResult.error(self.errorTexts.responseErrorTitle, self.errorTexts.responseErrorText))
                     return
                 }
                 
-                
-                }.resume()
+            }.resume()
         } else {
             callback(JsonArrayResult.error(self.errorTexts.networkErrorTitle, self.errorTexts.networkErrorText))
         }
@@ -209,5 +209,9 @@ open class NetworkService {
         body.append("--\(boundary)--\(br)")
         
         return body
+    }
+    
+    private func setAdditionalHeader(header: HTTPHeader?) {
+        
     }
 }

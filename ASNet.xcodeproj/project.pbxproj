@@ -111,19 +111,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		425AA6861FAE3D1600680962 /* Project */ = {
+		4293010B1FB6C7A600FDEC1C /* ASNet */ = {
 			isa = PBXGroup;
 			children = (
-				42C0EFEB1FAA4C8D00CB0442 /* ViewController.swift */,
-				42BD5A931FAC575500B654AE /* Lead.swift */,
+				42C0EFED1FAA4C8D00CB0442 /* Main.storyboard */,
+				42C0EFF01FAA4C8D00CB0442 /* Assets.xcassets */,
+				42C0EFF21FAA4C8D00CB0442 /* LaunchScreen.storyboard */,
+				42C0EFF51FAA4C8D00CB0442 /* Info.plist */,
 			);
-			path = Project;
+			path = ASNet;
 			sourceTree = "<group>";
 		};
 		42C0EFDD1FAA4C8C00CB0442 = {
 			isa = PBXGroup;
 			children = (
-				42C662161FAF76C000AD83CE /* ASNet */,
+				4293010B1FB6C7A600FDEC1C /* ASNet */,
+				42C662161FAF76C000AD83CE /* Demo */,
 				42C0EFE81FAA4C8C00CB0442 /* Source */,
 				42C0EFFD1FAA4C8D00CB0442 /* ASNetTests */,
 				42C0F0081FAA4C8D00CB0442 /* ASNetUITests */,
@@ -156,7 +159,6 @@
 				42D0F30C1FABB6C100F54521 /* Extensions.swift */,
 				42D0F30E1FABB70600F54521 /* JsonObjectResult.swift */,
 				42BD5A951FACDA5D00B654AE /* JsonArrayResult.swift */,
-				425AA6861FAE3D1600680962 /* Project */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -179,16 +181,14 @@
 			path = ASNetUITests;
 			sourceTree = "<group>";
 		};
-		42C662161FAF76C000AD83CE /* ASNet */ = {
+		42C662161FAF76C000AD83CE /* Demo */ = {
 			isa = PBXGroup;
 			children = (
 				42C0EFE91FAA4C8D00CB0442 /* AppDelegate.swift */,
-				42C0EFED1FAA4C8D00CB0442 /* Main.storyboard */,
-				42C0EFF01FAA4C8D00CB0442 /* Assets.xcassets */,
-				42C0EFF21FAA4C8D00CB0442 /* LaunchScreen.storyboard */,
-				42C0EFF51FAA4C8D00CB0442 /* Info.plist */,
+				42C0EFEB1FAA4C8D00CB0442 /* ViewController.swift */,
+				42BD5A931FAC575500B654AE /* Lead.swift */,
 			);
-			path = ASNet;
+			path = Demo;
 			sourceTree = "<group>";
 		};
 		6F97902841C88D4AD105CAD5 /* Pods */ = {
